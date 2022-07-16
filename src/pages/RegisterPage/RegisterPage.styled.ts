@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+
 export const Wrapper = styled.div(
   css({
     display: 'flex',
-      alignItems: 'center',
+    alignItems: 'center',
     '.half': {
       flex: '1 0 50%',
     },
@@ -13,9 +14,9 @@ export const Wrapper = styled.div(
       boxSizing: 'border-box',
     },
     '.view': {
-        height: '100vh',
-        backgroundImage: `url(img/tree.jpg)`,
-        backgroundPosition: 'center center',
+      height: '100vh',
+      backgroundImage: `url(img/tree.jpg)`,
+      backgroundPosition: 'center center',
     },
     '.title, p': {
       textAlign: 'center',
@@ -23,6 +24,11 @@ export const Wrapper = styled.div(
     '.form-item': {
       display: 'block',
       marginBottom: '10px',
+    },
+    '@media screen and (max-width: 900px)': {
+      '.view': {
+        display: 'none',
+      },
     },
   })
 )

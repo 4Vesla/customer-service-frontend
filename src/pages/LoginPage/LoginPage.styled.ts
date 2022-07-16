@@ -23,5 +23,10 @@ export const Wrapper = styled.div(
       display: 'block',
       marginBottom: '10px',
     },
+    '@media screen and (max-width: 900px)': {
+      '.view': {
+        display: 'none',
+      },
+    },
   })
 )
