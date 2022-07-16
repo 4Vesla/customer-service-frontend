@@ -1,6 +1,5 @@
 import InputUnstyled, {
   InputUnstyledProps,
-  inputUnstyledClasses,
 } from '@mui/base/InputUnstyled'
 import { styled } from '@mui/system'
 import React from 'react'
