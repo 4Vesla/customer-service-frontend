@@ -1,24 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { CustomInput } from '../../shared/components/InputStyled'
 import { Wrapper } from './RegisterPage.styled'
-import { Button } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { Button, TextField } from '@mui/material'
+import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'react-toastify'
+
+type FormData = {
+  name: string
+  surname: string
+  phoneNumber: string
+  birthDate: string
+  password: string
+  repeatPassword: string
+}
 
 function RegisterPage() {
   const {
     getValues,
     watch,
     reset,
-    register,
+    control,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormData>()
 
-  const submit = async () => {
+  const submit = async (data: FormData) => {
     try {
+      console.log(data)
+
+      reset()
       toast.success('Success')
     } catch (e) {
       throw e
@@ -31,28 +42,105 @@ function RegisterPage() {
         <form className="form" onSubmit={handleSubmit(submit)}>
           <h2 className="title">Register</h2>
           <label className="form-item">
-            <span>Name:</span>
-            <CustomInput />
+            <Controller
+              name={'name'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Name"
+                  variant="standard"
+                  type="text"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
           <label className="form-item">
-            <span>Surname:</span>
-            <CustomInput />
+            <Controller
+              name={'surname'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Surname"
+                  variant="standard"
+                  type="text"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
           <label className="form-item">
-            <span>Phone number:</span>
-            <CustomInput />
+            <Controller
+              name={'phoneNumber'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Phone number"
+                  variant="standard"
+                  type="tel"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
           <label className="form-item">
-            <span>Birth date:</span>
-            <CustomInput />
+            <Controller
+              name={'birthDate'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Birth date"
+                  variant="standard"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
           <label className="form-item">
-            <span>Password:</span>
-            <CustomInput />
+            <Controller
+              name={'password'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Password"
+                  variant="standard"
+                  type="password"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
           <label className="form-item">
-            <span>Repeat password:</span>
-            <CustomInput />
+            <Controller
+              name={'repeatPassword'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Repeat password"
+                  variant="standard"
+                  type="password"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
 
           <Button
