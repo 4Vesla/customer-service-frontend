@@ -1,42 +1,66 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { Wrapper } from './LoginPage.styled'
-import { CustomInput } from '../../shared/components/InputStyled'
-import { Button } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-function LoginPage() {
-  const {
-    getValues,
-    watch,
-    reset,
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm()
+type FormData = {
+  email: string
+  password: string
+}
 
-  const submit = async () => {
+function LoginPage() {
+  const { reset, control, handleSubmit } = useForm<FormData>()
+
+  const submit = async (data: FormData) => {
     try {
-      toast.success('Success')
+      console.log(data)
+
+      reset()
+      toast.success('Logged')
     } catch (e) {
       throw e
     }
   }
-
   return (
     <Wrapper>
       <div className="half">
         <form className="form" onSubmit={handleSubmit(submit)}>
           <h2 className="title">Login</h2>
           <label className="form-item">
-            <span>Email:</span>
-            <CustomInput type="email" placeholder="Email..." />
+            <Controller
+              name={'email'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Email"
+                  variant="standard"
+                  type="email"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
           <label className="form-item">
-            <span>Password:</span>
-            <CustomInput type="password" placeholder="Password..." />
+            <Controller
+              name={'password'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Password"
+                  variant="standard"
+                  type="password"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
           </label>
 
           <Button

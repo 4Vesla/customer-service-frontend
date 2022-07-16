@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 type FormData = {
   name: string
   surname: string
+  email: string
   phoneNumber: string
   birthDate: string
   password: string
@@ -15,22 +16,14 @@ type FormData = {
 }
 
 function RegisterPage() {
-  const {
-    getValues,
-    watch,
-    reset,
-    control,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<FormData>()
+  const { reset, control, handleSubmit } = useForm<FormData>()
 
   const submit = async (data: FormData) => {
     try {
       console.log(data)
 
       reset()
-      toast.success('Success')
+      toast.success('Registered')
     } catch (e) {
       throw e
     }
@@ -77,6 +70,23 @@ function RegisterPage() {
           </label>
           <label className="form-item">
             <Controller
+              name={'email'}
+              defaultValue={''}
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  label="Email"
+                  variant="standard"
+                  type="email"
+                  onChange={onChange}
+                  value={value}
+                  fullWidth={true}
+                />
+              )}
+            />
+          </label>
+          <label className="form-item">
+            <Controller
               name={'phoneNumber'}
               defaultValue={''}
               control={control}
@@ -95,12 +105,13 @@ function RegisterPage() {
           <label className="form-item">
             <Controller
               name={'birthDate'}
-              defaultValue={''}
+              defaultValue={'2003-05-24'}
               control={control}
               render={({ field: { onChange, value } }) => (
                 <TextField
                   label="Birth date"
                   variant="standard"
+                  type="date"
                   onChange={onChange}
                   value={value}
                   fullWidth={true}
