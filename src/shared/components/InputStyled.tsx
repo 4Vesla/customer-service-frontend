@@ -8,7 +8,6 @@ import { blue, grey } from '@mui/material/colors'
 
 const StyledInputRoot = styled('div')(
   ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
   display: flex;
   margin-top: 4px;
   font-weight: 500;
