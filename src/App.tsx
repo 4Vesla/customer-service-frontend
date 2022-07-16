@@ -1,10 +1,10 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import UsersPage from "./pages/UsersPage/UsersPage";
-import UserPage from "./pages/UserPage/UserPage";
-import HomePage from "./pages/HomePage/HomePage";
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import LoginPage from './pages/LoginPage/LoginPage'
+import RegisterPage from './pages/RegisterPage/RegisterPage'
+import UsersPage from './pages/UsersPage/UsersPage'
+import UserPage from './pages/UserPage/UserPage'
+import HomePage from './pages/HomePage/HomePage'
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
         </Routes>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

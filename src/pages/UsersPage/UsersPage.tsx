@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 function UsersPage() {
-  return <h2>UsersPage</h2>;
+  return <h2>UsersPage</h2>
 }
 
-export default UsersPage;
+export default UsersPage
