@@ -11,9 +11,11 @@ export const Wrapper = styled.div(
     },
     '.form': {
       padding: '50px',
+      maxWidth: '400px',
+      margin: '0 auto',
     },
     '.view': {
-      height: '100vh',
+      height: 'calc(100vh - 56px)',
       backgroundImage: 'url(img/winter-tree.jpg)',
     },
     '.title, p': {

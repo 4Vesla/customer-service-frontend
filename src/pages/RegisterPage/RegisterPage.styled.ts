@@ -9,12 +9,12 @@ export const Wrapper = styled.div(
       flex: '1 0 50%',
     },
     '.form': {
-      minWidth: '300px',
       padding: '50px',
-      boxSizing: 'border-box',
+      maxWidth: '400px',
+      margin: '0 auto',
     },
     '.view': {
-      height: '100vh',
+      height: 'calc(100vh - 56px)',
       backgroundImage: `url(img/tree.jpg)`,
       backgroundPosition: 'center center',
     },
