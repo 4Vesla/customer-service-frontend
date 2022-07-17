@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Wrapper } from './RegisterPage.styled'
 import { Button, TextField } from '@mui/material'
@@ -11,16 +11,39 @@ type FormData = {
   email: string
   phoneNumber: string
   birthDate: string
+  photo: File | null
   password: string
   repeatPassword: string
 }
 
+const MAX_FILE_SIZE = 1024 * 1024 * 5
+
 function RegisterPage() {
+  const inputEl = useRef<HTMLInputElement | null>(null)
   const { reset, control, handleSubmit } = useForm<FormData>()
+
+  const getInput = (): HTMLInputElement | null => {
+    return inputEl.current instanceof HTMLInputElement ? inputEl.current : null
+  }
+
+  const getFile = (): File | null => {
+    const input = getInput()
+
+    return input ? input.files?.[0] ?? null : null
+  }
+
+  const onFileChange = () => {
+    const input = getInput()
+    const file = getFile()
+
+    if (file?.size && file?.size > MAX_FILE_SIZE && input) {
+      toast.error('Too large image. Max size is 5mb')
+      input.value = ''
+    }
+  }
 
   const submit = async (data: FormData) => {
     try {
-      console.log(data)
 
       reset()
       toast.success('Registered')
@@ -118,6 +141,19 @@ function RegisterPage() {
                 />
               )}
             />
+          </label>
+          <label className="form-item">
+            <div className="file-label">Upload a photo (Optional): </div>
+            <div className="upload-file-wrapper">
+
+              <input
+                ref={inputEl}
+                onChange={onFileChange}
+                className="input-file"
+                type="file"
+                accept="image/*,capture=camera"
+              />
+            </div>
           </label>
           <label className="form-item">
             <Controller

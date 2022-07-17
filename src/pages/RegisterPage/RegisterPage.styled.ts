@@ -25,6 +25,17 @@ export const Wrapper = styled.div(
       display: 'block',
       marginBottom: '10px',
     },
+    '.upload-file-wrapper': {
+        display: 'block',
+        width: '100%',
+        border: '1px dashed #eeeeee',
+        padding: '1rem',
+        boxSizing: 'border-box'
+    },
+    '.file-label': {
+        marginBottom: '.5rem'
+    },
+
     '@media screen and (max-width: 900px)': {
       '.view': {
         display: 'none',
