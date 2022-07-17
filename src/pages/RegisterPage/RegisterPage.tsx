@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Wrapper } from './RegisterPage.styled'
+import { PictureIcon, Wrapper } from './RegisterPage.styled'
 import { Button, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -44,7 +44,6 @@ function RegisterPage() {
 
   const submit = async (data: FormData) => {
     try {
-
       reset()
       toast.success('Registered')
     } catch (e) {
@@ -145,7 +144,7 @@ function RegisterPage() {
           <label className="form-item">
             <div className="file-label">Upload a photo (Optional): </div>
             <div className="upload-file-wrapper">
-
+              <PictureIcon />
               <input
                 ref={inputEl}
                 onChange={onFileChange}
