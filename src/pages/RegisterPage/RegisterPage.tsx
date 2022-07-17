@@ -25,6 +25,7 @@ function RegisterPage() {
   const { reset, control, handleSubmit } = useForm<FormData>()
 
   const getInput = (): HTMLInputElement | null => {
+    console.log(inputEl)
     return inputEl.current instanceof HTMLInputElement ? inputEl.current : null
   }
 
@@ -177,7 +178,7 @@ function RegisterPage() {
             </div>
             {imageUrl ? (
               <div className="image-path">
-                <div className="image-name">{getInput()?.value ?? ''}</div>
+                <div className="image-name">{getInput()?.value?.replace(/^.*\\/, "") ?? ''}</div>
                 <div onClick={removeImage}>
                   <RemoveIcon />
                 </div>
