@@ -17,6 +17,15 @@ export const Wrapper = styled.div(
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+
+      transform: 'translateY(-50%)',
+      opacity: '0',
+      transition: 'all 500ms ease-in-out',
+
+      '&_opened': {
+        transform: 'translateY(0)',
+        opacity: '1',
+      },
     },
 
     '.custom-card': {

@@ -1,19 +1,34 @@
-import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { User, users } from '../../consts/users'
 import { ReturnButton, Wrapper } from './UserPage.styled'
 
 function UserPage() {
+  const [opened, setOpened] = useState<boolean>(false)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setOpened(true)
+  }, [])
+
+  const onReturnClicked = () => {
+    setOpened(false)
+    setTimeout(() => {
+      navigate('../users')
+    }, 500)
+  }
+
   const { id } = useParams()
   const user: User | undefined = users.find((el) => el.id.toString() === id)
 
   return user ? (
     <Wrapper>
-      <div className="wrapper">
+      <div className={opened ? 'wrapper wrapper_opened' : 'wrapper'}>
         <div className="custom-card">
-          <Link to="/users">
+          <div onClick={onReturnClicked}>
             <ReturnButton />
-          </Link>
+          </div>
           <div className="image-wrapper">
             <img
               className="image"
