@@ -37,7 +37,6 @@ export const Wrapper = styled.div(
       justifyContent: 'center',
       width: '100%',
       marginTop: '15px',
-      marginBottom: '-12px',
       border: '2px dashed #ccebff',
       borderRadius: '6px',
       padding: '2.5rem 2rem',
