@@ -10,22 +10,28 @@ function UsersPage() {
   return (
     <Wrapper>
       <div className="wrapper">
-        <div className="card">
-          <Card sx={{ width: '100%' }}>
-            <CardActionArea>
-              <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://4vesla.s3.eu-central-1.amazonaws.com/test.jpg"
-                  alt="user"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Good boy
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+        <div className="custom-card">
+          <div className="image-wrapper">
+            <img
+              className="image"
+              src="https://4vesla.s3.eu-central-1.amazonaws.com/test.jpg"
+            />
+          </div>
+          <div className="text">
+            <h2 className="text__title">
+              Ihor <br /> Pidhornyi
+            </h2>
+          </div>
+        </div>
+        <div className="custom-card">
+          <div className="image-wrapper">
+            <img className="image" src="img/user-empty.jpg" />
+          </div>
+          <div className="text">
+            <h2 className="text__title">
+              Ruslan <br /> Gumeniuk
+            </h2>
+          </div>
         </div>
       </div>
     </Wrapper>

@@ -18,7 +18,7 @@ function App() {
           <Toolbar variant="dense">
             <NavList>
               <li>
-                <Link to="/">
+                <Link to="/users">
                   <HomeIcon />
                 </Link>
               </li>
