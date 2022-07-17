@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import { AiFillDelete } from 'react-icons/ai'
 
 export const Wrapper = styled.div(
   css({
@@ -19,7 +20,8 @@ export const Wrapper = styled.div(
     },
 
     '.custom-card': {
-      padding: '1rem',
+      position: 'relative',
+      padding: '1.5rem 1rem 1rem',
       boxSizing: 'border-box',
       maxWidth: '18%',
       minWidth: '200px',
@@ -55,5 +57,17 @@ export const Wrapper = styled.div(
       margin: '5px 0',
       color: '#727272',
     },
+  })
+)
+
+export const DeleteButton = styled(AiFillDelete)(
+  css({
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    width: '26px',
+    height: '26px',
+    color: '#4d4d4d',
+    cursor: 'pointer',
   })
 )
