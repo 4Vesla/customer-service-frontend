@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import { HiPhotograph } from 'react-icons/hi'
 
 export const Wrapper = styled.div(
   css({
@@ -26,14 +27,21 @@ export const Wrapper = styled.div(
       marginBottom: '10px',
     },
     '.upload-file-wrapper': {
-        display: 'block',
-        width: '100%',
-        border: '1px dashed #eeeeee',
-        padding: '1rem',
-        boxSizing: 'border-box'
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      border: '1px dashed #e4e4e4',
+      padding: '2rem',
+      boxSizing: 'border-box',
+      cursor: 'pointer',
     },
+
+    '.input-file': {
+      display: 'none',
+    },
+
     '.file-label': {
-        marginBottom: '.5rem'
+      marginBottom: '.5rem',
     },
 
     '@media screen and (max-width: 900px)': {
@@ -41,5 +49,13 @@ export const Wrapper = styled.div(
         display: 'none',
       },
     },
+  })
+)
+
+export const PictureIcon = styled(HiPhotograph)(
+  css({
+    width: '30px',
+    height: '30px',
+    color: '#b3e0ff',
   })
 )
