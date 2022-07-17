@@ -31,6 +31,7 @@ export const Wrapper = styled.div(
       justifyContent: 'center',
       width: '100%',
       border: '1px dashed #e4e4e4',
+      borderRadius: '6px',
       padding: '2rem',
       boxSizing: 'border-box',
       cursor: 'pointer',
