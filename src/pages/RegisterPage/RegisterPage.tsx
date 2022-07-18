@@ -1,10 +1,18 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { PictureIcon, Wrapper, RemoveIcon } from './RegisterPage.styled'
+import {
+  PictureIcon,
+  Wrapper,
+  RemoveIcon,
+  ErrorText,
+} from './RegisterPage.styled'
 import { Button, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 import { toast } from 'react-toastify'
-import API from '../../shared/services/api'
+import api from '../../shared/services/api'
+import { registerFields } from '../../constants/registerForm'
+import { AxiosError } from 'axios'
 
 type FormData = {
   name: string
@@ -12,7 +20,6 @@ type FormData = {
   email: string
   phoneNumber: string
   birthDate: string
-  photo: File | null
   password: string
   repeatPassword: string
 }
@@ -23,10 +30,14 @@ function RegisterPage() {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   const inputEl = useRef<HTMLInputElement | null>(null)
-  const { reset, control, handleSubmit } = useForm<FormData>()
+  const {
+    reset,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>()
 
   const getInput = (): HTMLInputElement | null => {
-    console.log(inputEl)
     return inputEl.current instanceof HTMLInputElement ? inputEl.current : null
   }
 
@@ -63,12 +74,34 @@ function RegisterPage() {
 
   const submit = async (data: FormData) => {
     try {
-      const res = await API.post('/register', data)
+      const formData = new FormData()
+
+      if (data.password !== data.repeatPassword) {
+        toast.error('Passwords are not the same')
+        return
+      }
+
+      formData.append('name', data.name)
+      formData.append('surname', data.surname)
+      formData.append('email', data.email)
+      formData.append('phoneNumber', data.phoneNumber)
+      formData.append('password', data.password)
+      formData.append('birthDate', data.birthDate)
+      formData.append('photo', imageUrl ? imageUrl : '')
+
+      const res = await api.post('/registration', formData)
 
       reset()
+      const input = getInput()
+      if (input) input.value = ''
+      setImageUrl(null)
+
       toast.success('Registered')
-    } catch (e) {
-      throw e
+    } catch (error: unknown) {
+      let message
+      if (error instanceof AxiosError) message = error?.response?.data?.error
+      else message = String(error)
+      toast.error(message)
     }
   }
 
@@ -77,74 +110,36 @@ function RegisterPage() {
       <div className="half">
         <form className="form" onSubmit={handleSubmit(submit)}>
           <h2 className="title">Register</h2>
-          <label className="form-item">
-            <Controller
-              name={'name'}
-              defaultValue={''}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  label="Name"
-                  variant="standard"
-                  type="text"
-                  onChange={onChange}
-                  value={value}
-                  fullWidth={true}
-                />
-              )}
-            />
-          </label>
-          <label className="form-item">
-            <Controller
-              name={'surname'}
-              defaultValue={''}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  label="Surname"
-                  variant="standard"
-                  type="text"
-                  onChange={onChange}
-                  value={value}
-                  fullWidth={true}
-                />
-              )}
-            />
-          </label>
-          <label className="form-item">
-            <Controller
-              name={'email'}
-              defaultValue={''}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  label="Email"
-                  variant="standard"
-                  type="email"
-                  onChange={onChange}
-                  value={value}
-                  fullWidth={true}
-                />
-              )}
-            />
-          </label>
-          <label className="form-item">
-            <Controller
-              name={'phoneNumber'}
-              defaultValue={''}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  label="Phone number"
-                  variant="standard"
-                  type="tel"
-                  onChange={onChange}
-                  value={value}
-                  fullWidth={true}
-                />
-              )}
-            />
-          </label>
+          {registerFields.map((el) => (
+            <label className="form-item">
+              <Controller
+                name={el.name}
+                rules={el.validation}
+                defaultValue={el.defaultValue}
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <TextField
+                      label={el.helpText}
+                      variant="standard"
+                      type={el.type}
+                      onChange={onChange}
+                      value={value}
+                      fullWidth={true}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name={el.name}
+                      render={({ message }: any) => (
+                        <ErrorText>{message}</ErrorText>
+                      )}
+                    />
+                  </>
+                )}
+              />
+            </label>
+          ))}
+
           <label className="form-item">
             <Controller
               name={'birthDate'}
@@ -189,40 +184,6 @@ function RegisterPage() {
                 </div>
               </div>
             ) : null}
-          </label>
-          <label className="form-item">
-            <Controller
-              name={'password'}
-              defaultValue={''}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  label="Password"
-                  variant="standard"
-                  type="password"
-                  onChange={onChange}
-                  value={value}
-                  fullWidth={true}
-                />
-              )}
-            />
-          </label>
-          <label className="form-item">
-            <Controller
-              name={'repeatPassword'}
-              defaultValue={''}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  label="Repeat password"
-                  variant="standard"
-                  type="password"
-                  onChange={onChange}
-                  value={value}
-                  fullWidth={true}
-                />
-              )}
-            />
           </label>
 
           <Button
