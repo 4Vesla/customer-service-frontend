@@ -87,7 +87,9 @@ function RegisterPage() {
       formData.append('phoneNumber', data.phoneNumber)
       formData.append('password', data.password)
       formData.append('birthDate', data.birthDate)
-      formData.append('photo', imageUrl ? imageUrl : '')
+
+      const file = getFile()
+      file && formData.append('photo', file)
 
       const res = await api.post('/registration', formData)
 
@@ -111,7 +113,7 @@ function RegisterPage() {
         <form className="form" onSubmit={handleSubmit(submit)}>
           <h2 className="title">Register</h2>
           {registerFields.map((el) => (
-            <label className="form-item">
+            <label key={el.name} className="form-item">
               <Controller
                 name={el.name}
                 rules={el.validation}

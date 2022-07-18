@@ -15,7 +15,6 @@ function HomePage() {
   const { token, setToken } = useGlobalContext()
 
   useEffect(() => {
-    console.log(token)
     setIsLoggedIn(!!token)
   }, [token])
 
