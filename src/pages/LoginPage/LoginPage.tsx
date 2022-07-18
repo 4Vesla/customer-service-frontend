@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { Wrapper } from './LoginPage.styled'
 import { Button, TextField } from '@mui/material'
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import API from '../../shared/services/api'
-import {useGlobalContext} from "../../shared/context/GlobalContext";
-import {AxiosError} from "../../shared/models/axios-error";
+import { useGlobalContext } from '../../shared/context/GlobalContext'
+import { AxiosError } from '../../shared/models/axios-error'
 
 type FormData = {
   email: string
@@ -14,6 +14,16 @@ type FormData = {
 }
 
 function LoginPage() {
+  const [queryParams] = useSearchParams()
+
+  useEffect(() => {
+    const emailConfirm = queryParams.get('emailConfirm')
+
+    if (emailConfirm) {
+      toast.success('Email confirmed!')
+    }
+  }, [queryParams])
+
   const { setToken } = useGlobalContext()
   const navigate = useNavigate()
   const { reset, control, handleSubmit } = useForm<FormData>()
