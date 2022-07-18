@@ -15,8 +15,6 @@ function LoginPage() {
 
   const submit = async (data: FormData) => {
     try {
-      console.log(data)
-
       reset()
       toast.success('Logged')
     } catch (e) {

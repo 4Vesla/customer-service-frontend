@@ -80,7 +80,7 @@ export const Wrapper = styled.div(
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-        gap: '0 10px',
+      gap: '0 10px',
       '& svg': {
         width: '25px',
       },
@@ -107,5 +107,12 @@ export const RemoveIcon = styled(AiFillCloseCircle)(
     width: '25px',
     height: '25px',
     cursor: 'pointer',
+  })
+)
+
+export const ErrorText = styled.p(
+  css({
+    color: 'red',
+    fontSize: '0.5rem',
   })
 )
