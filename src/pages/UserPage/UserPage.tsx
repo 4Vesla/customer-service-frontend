@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { User, users } from '../../consts/users'
+import { User, users } from '../../constants/users'
 import { ReturnButton, Wrapper } from './UserPage.styled'
 
 function UserPage() {
