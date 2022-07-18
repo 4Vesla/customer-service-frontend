@@ -3,7 +3,10 @@ import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { Wrapper } from './LoginPage.styled'
 import { Button, TextField } from '@mui/material'
-import { Link } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import API from '../../shared/services/api'
+import {useGlobalContext} from "../../shared/context/GlobalContext";
+import {AxiosError} from "../../shared/models/axios-error";
 
 type FormData = {
   email: string
@@ -11,16 +14,29 @@ type FormData = {
 }
 
 function LoginPage() {
+  const { setToken } = useGlobalContext()
+  const navigate = useNavigate()
   const { reset, control, handleSubmit } = useForm<FormData>()
 
   const submit = async (data: FormData) => {
     try {
-      console.log(data)
+      const formData = new FormData()
 
+      formData.append('username', data.email)
+      formData.append('password', data.password)
+
+      const result = await API.post('login', formData)
+      const token = result.data?.token as string
+
+      localStorage.setItem('token', JSON.stringify(token))
+      setToken(token)
+
+      navigate('/users')
       reset()
       toast.success('Logged')
-    } catch (e) {
-      throw e
+    } catch (e: unknown) {
+      const error = e as AxiosError
+      toast.error(error.response.data.error)
     }
   }
   return (

@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 
 export const NavList = styled.ul(
   css({
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     padding: '0',
@@ -17,6 +18,11 @@ export const NavList = styled.ul(
       '&:hover': {
         textDecoration: 'underline',
       },
+    },
+
+    '& .logout': {
+      cursor: 'pointer',
+      marginLeft: 'auto',
     },
   })
 )

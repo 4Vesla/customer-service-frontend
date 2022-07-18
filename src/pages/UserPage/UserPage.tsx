@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { User, users } from '../../constants/users'
+import { User } from '../../shared/models/user'
 import { ReturnButton, Wrapper } from './UserPage.styled'
+import { useGlobalContext } from '../../shared/context/GlobalContext'
 
 function UserPage() {
   const [opened, setOpened] = useState<boolean>(false)
+
+  const { users } = useGlobalContext()
 
   const navigate = useNavigate()
 
@@ -20,7 +23,9 @@ function UserPage() {
   }
 
   const { id } = useParams()
-  const user: User | undefined = users.find((el) => el.id.toString() === id)
+  const user: User | undefined = users?.find(
+    (el: User) => el.id.toString() === id
+  )
 
   return user ? (
     <Wrapper>
@@ -32,17 +37,17 @@ function UserPage() {
           <div className="image-wrapper">
             <img
               className="image"
-              src={user.profilePicture}
-              alt={user.name + ' ' + user.surname}
+              src={user.photoUrl || '../img/user-empty.jpg'}
+              alt={user.name + ' ' + user.surname ?? ''}
             />
           </div>
           <div className="text">
             <h2 className="text__title">
-              {user.name} {user.surname}
+              {user.name ?? ''} {user.surname ?? ''}
             </h2>
-            <p className="text__data">Email: {user.email}</p>
-            <p className="text__data">Phone: {user.phoneNumber}</p>
-            <p className="text__data">Birth: {user.birthDate}</p>
+            <p className="text__data">Email: {user.email ?? ''}</p>
+            <p className="text__data">Phone: {user.phoneNumber ?? ''}</p>
+            <p className="text__data">Birth: {user.birthDate ?? ''}</p>
           </div>
         </div>
       </div>

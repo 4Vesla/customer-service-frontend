@@ -1,11 +1,10 @@
-import React, { MouseEventHandler, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PictureIcon, Wrapper, RemoveIcon } from './RegisterPage.styled'
 import { Button, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import instance from '../../lib/axios'
-import axiosInst from '../../lib/axios'
+import API from '../../shared/services/api'
 
 type FormData = {
   name: string
@@ -64,7 +63,7 @@ function RegisterPage() {
 
   const submit = async (data: FormData) => {
     try {
-      const res = await axiosInst.post('/register', data)
+      const res = await API.post('/register', data)
 
       reset()
       toast.success('Registered')

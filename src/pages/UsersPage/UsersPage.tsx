@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { users } from '../../constants/users'
 import { DeleteButton, Wrapper } from './UsersPage.styled'
 import API from '../../shared/services/api'
+import { useGlobalContext } from '../../shared/context/GlobalContext'
 
 function UsersPage() {
+  const { users, setUsers } = useGlobalContext()
+
   useEffect(() => {
-      const formData = new FormData()
-
-      formData.append('username', 'zalupa529@gmail.com')
-      formData.append('password', 'wasd12345')
-
-      API.post('login', formData)
-  }, [])
+    API.get('customers')
+      .then((res) => res.data)
+      .then((users) => setUsers(users))
+      .catch((e) => {
+        console.log(e)
+      })
+  }, [setUsers])
 
   return (
     <Wrapper>
@@ -23,13 +25,13 @@ function UsersPage() {
             <div className="image-wrapper">
               <img
                 className="image"
-                src={el.profilePicture}
-                alt={el.name + ' ' + el.surname}
+                src={el.photoUrl || 'img/user-empty.jpg'}
+                alt={el.name + ' ' + el.surname ?? ''}
               />
             </div>
             <div className="text">
               <h2 className="text__title">
-                {el.name} <br /> {el.surname}
+                {el.name ?? ''} <br /> {el.surname ?? ''}
               </h2>
             </div>
           </Link>
